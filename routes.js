@@ -5,7 +5,7 @@ const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const routes = {
-    '/': path.join(__dirname, 'public', 'Pages', 'HomePage', 'index.html'),
+    '/': path.join(__dirname, 'public', 'Pages', 'Login', 'Login.html'),
     '/about': path.join(__dirname, 'public', 'Pages', 'AboutPage', 'index.html'),
     
 }
