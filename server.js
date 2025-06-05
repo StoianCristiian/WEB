@@ -2,7 +2,7 @@ import http from 'http';
 import { getConnection } from './database/db.js';
 import fs from 'fs/promises'
 import { getRoute } from './routes.js';
-import dotenv from 'dotenv';
+import path from 'path';
 
 const PORT = process.env.PORT;
 
@@ -10,17 +10,14 @@ const server = http.createServer(async (req, res) => {
     try 
     {
         if(req.method === 'GET'){
-            // const connection = await getConnection();
-            // const result = await connection.execute('SELECT 1 FROM DUAL');
-            // console.log(result);
-            // await connection.close();
+            const filePath = getRoute(req.url)
+            const ext = path.extname(filePath)
+            let contentType = 'text/html';
+            if(ext === '.css') contentType = 'text/css'
+            else if(ext === '.js') contentType = 'application/javascript';
 
-            // res.writeHead(200, { 'Content-Type': 'application/json' });
-            // res.end(JSON.stringify(result.rows));
-
-            const filePath = getRoute(req.url);
             const data = await fs.readFile(filePath);
-            res.setHeader('Content-Type', 'text/html');
+            res.setHeader('Content-Type', contentType);
             res.write(data);
             res.end();
         }
