@@ -1,0 +1,38 @@
+body {
+    font-family: sans-serif;
+    background: #2d9fb6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 300px;
+}
+
+input,
+button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.toggle {
+    text-align: center;
+    margin-top: 1rem;
+    cursor: pointer;
+    color: #007BFF;
+}
