@@ -8,10 +8,9 @@ const baseDir = path.join(__dirname, '../app', 'Pages');
 const routes = {
     '/': path.join(baseDir, 'Login', 'Login.html'),
     '/about': path.join(baseDir, 'AboutPage', 'index.html'),
+    '/register': path.join(baseDir, 'RegisterPage', 'register.html')
     
 }
-
-console.log(__dirname);
 
 export function getRoute(urlPath){
     if (urlPath === '/favicon.ico') {
@@ -19,6 +18,7 @@ export function getRoute(urlPath){
     }
     if(/\.(css|js)$/i.test(urlPath)) {
         const resolvedPath = path.normalize(path.join(baseDir, urlPath.replace(/^\//, '')));
+        console.log(resolvedPath);
         if (!resolvedPath.startsWith(baseDir)) {
             return path.join(baseDir, 'NotFoundPage', 'NotFound.html');
         }

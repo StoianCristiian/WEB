@@ -15,6 +15,7 @@ body {
 
 h2 {
     color: white;
+    margin-bottom: 20px;
 }
 
 .auth-form {
@@ -31,14 +32,14 @@ h2 {
     text-align: center;
     background: black;
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: 24px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    width: 300px;
+    width: 500px;
 }
 
 input,
 button {
-    width: 50%;
+    width: 70%;
     margin-top: 10px;
     padding: 10px;
     border-radius: 5px;
