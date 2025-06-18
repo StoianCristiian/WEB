@@ -1,5 +1,5 @@
 import http from 'http';
-import { getConnection } from './database/db.js';
+import { handleUserRegister } from './routes/api-users.js';
 import fs from 'fs/promises'
 import { getRoute } from './routes/routes.js';
 import path from 'path';
@@ -7,6 +7,8 @@ import path from 'path';
 const PORT = process.env.PORT;
 
 const server = http.createServer(async (req, res) => {
+    const handled = await handleUserRegister(req, res);
+    if (handled) return;
     try 
     {
         if(req.method === 'GET'){

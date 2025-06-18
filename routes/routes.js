@@ -18,7 +18,6 @@ export function getRoute(urlPath){
     }
     if(/\.(css|js)$/i.test(urlPath)) {
         const resolvedPath = path.normalize(path.join(baseDir, urlPath.replace(/^\//, '')));
-        console.log(resolvedPath);
         if (!resolvedPath.startsWith(baseDir)) {
             return path.join(baseDir, 'NotFoundPage', 'NotFound.html');
         }
