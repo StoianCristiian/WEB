@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InputGenerator</title>
+    <title>InputGenerator - Register</title>
+    <link rel="stylesheet" href="RegisterPage/Register.css" />
 </head>
 <body>
-    
+    <div class="container">
+        <h2 id="form-title">Register</h2>
+        <form id="register-form">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <div class="toggle" id="toggle-login">Ai deja cont? Login</div>
+    </div>
+    <script src="RegisterPage/Register.js"></script>
 </body>
 </html>
