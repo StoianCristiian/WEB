@@ -1,7 +1,7 @@
 import http from 'http';
 import { getConnection } from './database/db.js';
 import fs from 'fs/promises'
-import { getRoute } from './routes.js';
+import { getRoute } from './routes/routes.js';
 import path from 'path';
 
 const PORT = process.env.PORT;
