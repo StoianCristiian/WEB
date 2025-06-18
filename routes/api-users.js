@@ -7,6 +7,7 @@ export async function handleUserRegister(req, res) {
         req.on('data', chunk => { body += chunk; });
         req.on('end', async () => {
             try {
+                console.log(body);
                 const { username, password, email } = JSON.parse(body);
                 // Hash-uiește parola aici (decomentează dacă folosești bcrypt)
                 // const password_hash = await bcrypt.hash(password, 10);

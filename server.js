@@ -7,8 +7,7 @@ import path from 'path';
 const PORT = process.env.PORT;
 
 const server = http.createServer(async (req, res) => {
-    const handled = await handleUserRegister(req, res);
-    if (handled) return;
+    if (await handleUserRegister(req, res)) return;
     try 
     {
         if(req.method === 'GET'){
