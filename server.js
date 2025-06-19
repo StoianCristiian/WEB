@@ -1,5 +1,6 @@
 import http from 'http';
 import { handleUserRegister } from './routes/api-users.js';
+import { handleAuth } from './routes/api-auth.js';
 import fs from 'fs/promises'
 import { getRoute } from './routes/routes.js';
 import path from 'path';
@@ -7,6 +8,7 @@ import path from 'path';
 const PORT = process.env.PORT;
 
 const server = http.createServer(async (req, res) => {
+    if (await handleAuth(req,res)) return;
     if (await handleUserRegister(req, res)) return;
     try 
     {

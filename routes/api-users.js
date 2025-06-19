@@ -10,7 +10,6 @@ export async function handleUserRegister(req, res) {
                 console.log(body);
                 const { username, password, email } = JSON.parse(body);
                 const password_hash = await bcrypt.hash(password, 10);
-                console.log(password_hash); 
 
                 const connection = await getConnection();
                 await connection.execute(
