@@ -1,15 +1,19 @@
 import http from 'http';
 import { handleUserRegister } from './routes/api-users.js';
 import { handleAuth } from './routes/api-auth.js';
+import { handleMe } from './routes/api-me.js';
 import fs from 'fs/promises'
 import { getRoute } from './routes/routes.js';
 import path from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const PORT = process.env.PORT;
 
 const server = http.createServer(async (req, res) => {
     if (await handleAuth(req,res)) return;
     if (await handleUserRegister(req, res)) return;
+    if(await handleMe(req, res)) return;
     try 
     {
         if(req.method === 'GET'){

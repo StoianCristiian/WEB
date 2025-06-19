@@ -16,7 +16,8 @@ document.getElementById('auth-form').addEventListener('submit', async function(e
 
        const result = await response.json();
        if (response.ok) {
-              alert('Login successful!');
+              localStorage.setItem('token', result.token);
+              window.location.href = '/';
        } else {
               alert(result.error || 'Eroare la autentificare!');
        }
