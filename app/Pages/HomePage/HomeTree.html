@@ -1,0 +1,24 @@
+<form id="tree-form" class="property-form">
+    <h3>Proprietăți arbore</h3>
+    <label>Adâncime maximă: <input type="number" name="max-depth" min="1" required></label><br>
+    <label>Tip noduri:</label>
+    <select name="node-type">
+        <option value="integer">Întregi</option>
+        <option value="float">Reale</option>
+    </select><br>
+    <label>Valoare minimă: <input type="number" name="min" required></label><br>
+    <label>Valoare maximă: <input type="number" name="max" required></label><br>
+    <label>Tip arbore:</label>
+    <select name="tree-type">
+        <option value="binary">Arbore binar</option>
+        <option value="search">Arbore binar de căutare</option>
+        <option value="AVL">Arbore AVL</option>
+    </select><br>
+    <label>Reprezentare:</label>
+    <select name="representation">
+        <option value="parent">Referințe ascendente (nod, Tata[nod], Tip[nod])</option>
+        <option value="children">Referințe descendente (nod, copilStânga[k], copilDreapta[k])</option>
+        <option value="alocation">Alocare dinamică</option>
+    </select><br>
+    <button type="submit">Generează arbore</button>
+</form>
