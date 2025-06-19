@@ -1,5 +1,5 @@
 import { getConnection } from '../database/db.js';
-// import bcrypt from 'bcrypt'; // decomentează dacă folosești bcrypt
+import bcrypt from 'bcrypt'; 
 
 export async function handleUserRegister(req, res) {
     if (req.method === 'POST' && req.url === '/api/users') {
@@ -9,9 +9,8 @@ export async function handleUserRegister(req, res) {
             try {
                 console.log(body);
                 const { username, password, email } = JSON.parse(body);
-                // Hash-uiește parola aici (decomentează dacă folosești bcrypt)
-                // const password_hash = await bcrypt.hash(password, 10);
-                const password_hash = password; // Înlocuiește cu hash-ul real!
+                const password_hash = await bcrypt.hash(password, 10);
+                console.log(password_hash); 
 
                 const connection = await getConnection();
                 await connection.execute(
