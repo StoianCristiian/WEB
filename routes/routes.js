@@ -9,14 +9,14 @@ const routes = {
     '/': path.join(baseDir, 'HomePage', "Home.html"),
     '/login': path.join(baseDir, 'Login', 'Login.html'),
     '/about': path.join(baseDir, 'AboutPage', 'index.html'),
-    '/register': path.join(baseDir, 'RegisterPage', 'register.html')
+    '/register': path.join(baseDir, 'RegisterPage', 'register.html'),
 }
 
 export function getRoute(urlPath){
     if (urlPath === '/favicon.ico') {
         return path.join(__dirname, '../app', 'Images', 'favicon.ico');
     }
-    if(/\.(css|js)$/i.test(urlPath)) {
+    if(/\.(css|js|html)$/i.test(urlPath)) {
         const resolvedPath = path.normalize(path.join(baseDir, urlPath.replace(/^\//, '')));
         if (!resolvedPath.startsWith(baseDir)) {
             return path.join(baseDir, 'NotFoundPage', 'NotFound.html');

@@ -1,0 +1,22 @@
+<form id="matrix-form" class="property-form">
+                        <h3>Proprietăți matrice</h3>
+                     <label>Număr linii: <input type="number" name="rows" min="1" required></label><br>
+                     <label>Număr coloane: <input type="number" name="columns" min="1" required></label><br>
+                     <label>Valoare minimă: <input type="number" name="min" required></label><br>
+                     <label>Valoare maximă: <input type="number" name="max" required></label><br>
+                     <label> Tip numere:</label>
+                        <select name="number-type">
+                            <option value="integer">Întregi</option>
+                            <option value="float">Reale</option>
+                                                    </select><br>
+                        <label>Tip matrice:</label>
+                        <select name="type">
+                            <option value="random">Aleatorie completă</option>
+                            <option value="identity">Identitate</option>
+                            <option value="diagonal">Matrice diagonală</option>
+                            <option value="triangular superior">Triunghiulară superioară</option>
+                            <option value="triangular inferior">Triunghiulară inferioară</option>
+                            <option value="binary">Matrice binară</option>
+                        </select><br>
+                        <button type="submit">Generează matrice</button>
+                    </form>

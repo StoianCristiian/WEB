@@ -1,0 +1,28 @@
+
+        <form id="graph-form" class="property-form">
+            <h3>Proprietăți graf</h3>
+            <label>Număr noduri: <input type="number" name="nodes" min="1" required></label><br>
+            <label>Număr muchii: <input type="number" name="edges" min="0" required></label><br>
+            <label> Proprietăți:</label>
+            <label><input type="checkbox" id="cost-checkbox" name="cost" > Costuri</label><br>
+            <div id="cost-section" style="display:none;">
+                <label>Valoare minimă cost: <input type="number" name="min-cost"></label><br>
+                <label>Valoare maximă cost: <input type="number" name="max-cost"></label><br>
+            </div>
+            <label><input type="checkbox" id="graph-1" name="graph">Graf neorientat</label><br>
+            <label><input type="checkbox" id="graph-2" name="digraph">Graf orientat</label><br>
+            <label><input type="checkbox" id="conex" name="Conex">Graf conex</label><br>
+             <div id="conex-section" style="display:none;">
+                <label><input type="checkbox" id="weak" name="Weak">Slab conex</label><br>
+                <label><input type="checkbox" id="strong" name="Strong">Tare conex</label><br>
+                <label></label><br>
+            </div>
+            <label><input type="checkbox" id="bipartit" name="Bipartit">Graf bipartit</label><br>
+            <label>Tip reprezentare:</label>
+            <select name="sd-type">
+                            <option value="matrix">Matrice de adiacență</option>
+                            <option value="list">Liste de adiacență</option>
+                        </select><br>
+            <button type="submit">Generează graf</button>
+        </form>
+    
