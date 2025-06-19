@@ -50,3 +50,25 @@ main {
     box-shadow: 0 4px 16px rgba(76,175,80,0.15);
     border-color: #388e3c;
 }
+.property-form {
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    max-width: 350px;
+}
+.property-form label {
+    display: block;
+    margin-bottom: 0.7rem;
+}
+.property-form button {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
