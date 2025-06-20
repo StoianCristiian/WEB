@@ -51,7 +51,9 @@ document.querySelectorAll('.input-card').forEach(card=>{
             const data = Object.fromEntries(new FormData(form));
             fetch('/api/generate', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                           'Authorization': 'Bearer ' + localStorage.getItem('token')
+                 },
                 body: JSON.stringify({
                     input_type_id: 1,
                     parameters: data,
@@ -75,7 +77,9 @@ document.querySelectorAll('.input-card').forEach(card=>{
             const data = Object.fromEntries(new FormData(form));
             fetch('/api/generate', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                           'Authorization': 'Bearer ' + localStorage.getItem('token')
+                 },
                 body: JSON.stringify({
                     input_type_id: 2,
                     parameters: data,

@@ -29,7 +29,7 @@ export async function handleAuth(req, res) {
 
                 if (match) {
                     // Generează JWT
-                    const token = jwt.sign({ user_id, username }, SECRET, { expiresIn: '2h' });
+                    const token = jwt.sign({ user_id, username }, SECRET, { expiresIn: '10m' });
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ message: 'Login successful', token }));
                 } else {
