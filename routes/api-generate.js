@@ -1,4 +1,5 @@
 import { getConnection } from '../database/db.js';
+import { getUserFromToken } from '../utils/auth.js';
 
 function generateVector(params) {
     const length = Number(params.length);
@@ -119,7 +120,9 @@ export async function handleGenerateInput(req, res) {
         req.on('data', chunk => { body += chunk; });
         req.on('end', async () => {
             try {
-                const { user_id, input_type_id, parameters } = JSON.parse(body);
+                const { input_type_id, parameters } = JSON.parse(body);
+                const user = getUserFromToken(req);
+                const user_id = user ? user.user_id : null;
 
                 let generated;
                 if (input_type_id == 1) {
