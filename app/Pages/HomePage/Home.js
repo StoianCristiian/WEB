@@ -40,18 +40,52 @@ document.querySelectorAll('.input-card').forEach(card=>{
         const type=card.dataset.type;
         clicked=(clicked+1)%2 ;
         if(clicked==1){
-       if(type=='vector'){
-        fetch('HomePage/HomeVector.html')
-        .then(r => r.text())
-        .then(html => {
-            inputProperties.innerHTML = html;
+      if(type=='vector'){
+    fetch('HomePage/HomeVector.html')
+    .then(r => r.text())
+    .then(html => {
+        inputProperties.innerHTML = html;
+        const form = document.getElementById('vector-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(form));
+            fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    input_type_id: 1,
+                    parameters: data,
+                })
+            })
+            .then(r => r.json())
+            .then(result => {
+                alert('Vector generat: ' + JSON.stringify(result.result));
+            });
         });
+    });
 }
         if(type=='matrice'){
              fetch('HomePage/HomeMatrix.html')
         .then(r => r.text())
         .then(html => {
             inputProperties.innerHTML = html;
+             const form = document.getElementById('matrix-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(form));
+            fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    input_type_id: 2,
+                    parameters: data,
+                })
+            })
+            .then(r => r.json())
+            .then(result => {
+                alert('Matrice generată: ' + JSON.stringify(result.result));
+            });
+        });
         });
         }
         if(type=='string'){
@@ -74,7 +108,6 @@ document.querySelectorAll('.input-card').forEach(card=>{
         .then(html => {
             inputProperties.innerHTML = html;
 
-            // TOT codul de mai jos trebuie să fie aici, după inserarea HTML-ului!
             const costCheckbox = document.getElementById('cost-checkbox');
             const costSection = document.getElementById('cost-section');
             costCheckbox.addEventListener('change', function() {
