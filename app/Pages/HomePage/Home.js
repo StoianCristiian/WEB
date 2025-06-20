@@ -1,3 +1,33 @@
+window.addEventListener('DOMContentLoaded', () => {
+    const loginBtn = document.getElementById('login-btn');
+    const welcomeSpan = document.getElementById('welcome');
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        fetch('/api/me', {
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+            if (data && data.username) {
+                welcomeSpan.textContent = `Bine ai venit, ${data.username}!`;
+                loginBtn.style.display = 'none';
+            } else {
+                loginBtn.style.display = 'block';
+                welcomeSpan.textContent = '';
+            }
+        })
+        .catch(() => {
+            loginBtn.style.display = 'block';
+            welcomeSpan.textContent = '';
+        });
+    } else {
+        loginBtn.style.display = 'block';
+        welcomeSpan.textContent = '';
+    }
+});
+
+
 document.getElementById('login-btn').addEventListener('click', function() {
        window.location.href = 'login';
 });
@@ -91,4 +121,3 @@ document.querySelectorAll('.input-card').forEach(card=>{
 });
 })
 })
- 
