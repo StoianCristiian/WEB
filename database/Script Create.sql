@@ -55,13 +55,9 @@ BEGIN
      END IF;
 END ;
 /
-INSERT INTO Input_Types (name, description) VALUES ('vector', 'Vector numeric generat automat');
-INSERT INTO Input_Types (name, description) VALUES ('matrice', 'Matrice numerică generată automat');
-INSERT INTO Input_Types (name, description) VALUES ('graf', 'Graf orientat sau neorientat generat automat');
-INSERT INTO Input_Types (name, description) VALUES ('sir', 'Șir de caractere generat automat');
-INSERT INTO Input_Types (name, description) VALUES ('arbore', 'Arbore binar sau AVL generat automat');
-SELECT * FROM Input_Types;
 
+SELECT * FROM Input_Types;
+DROP Table Input_Types;
 CREATE SEQUENCE seq_input_id START WITH 1 INCREMENT BY 1;
 
 CREATE OR REPLACE TRIGGER trg_input_id
@@ -85,3 +81,9 @@ BEGIN
     END IF;
 END;
 /
+INSERT INTO Input_Types (name, description) VALUES ('vector', 'Vector numeric generat automat');
+INSERT INTO Input_Types (name, description) VALUES ('matrice', 'Matrice numerică generată automat');
+INSERT INTO Input_Types (name, description) VALUES ('graf', 'Graf orientat sau neorientat generat automat');
+INSERT INTO Input_Types (name, description) VALUES ('sir', 'Șir de caractere generat automat');
+INSERT INTO Input_Types (name, description) VALUES ('arbore', 'Arbore binar sau AVL generat automat');
+Select * from Input_Types order by input_type_id;

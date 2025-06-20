@@ -112,7 +112,83 @@ function generateMatrix(params) {
     }
     return matrix;
     }
+function generateString(params) {
+    const length = Number(params.length);
+    const lowercase = params.lowercase === 'on';
+    const uppercase = params.uppercase === 'on';
+    const digits = params.digits === 'on';
+    const special= params.special === 'on';
+    const whitespace=params.whitespace === 'on';
+    let chars='' ;
+    if(lowercase) chars += 'abcdefghijklmnopqrstuvwxyz';
+    if(uppercase) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if(digits) chars += '0123456789';
+    if(special) chars += '!@#$%^&*()_+[]{}|;:,.<>?';
+    if(whitespace) chars += ' \t\n\r';
+    let result = '';
+    if(!chars) throw new Error('Nu s-au selectat tipuri de caractere!');
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        result += chars[randomIndex];
+    }
+    return result;
+}
+function generateGraph(params){
 
+}
+function generateTree(params){
+    const depth=Number(params['max-depth']);
+    const min=Number(params.min);
+    const max=Number(params.max);
+    const numberType = params['node-type'];
+    const type=params['tree-type'];
+    const representation=params.representation;
+    const maxNodes=Math.pow(2, depth) - 1;
+    const nodeCount= Math.floor(Math.random() * (maxNodes - 1)) + 1;
+    let tree=[] ;
+    let values = [];
+    for (let i = 0; i < nodeCount; i++) {
+        let val = numberType === 'float'
+            ? Math.random() * (max - min) + min
+            : Math.floor(Math.random() * (max - min + 1)) + min;
+        values.push(val);
+    }
+    if(representation === 'parent'){
+         if(type==='binary'){
+        for (let i = 0; i < nodeCount; i++) {
+            let parent, typeNode;
+            if (i === 0) {
+                parent = -1;
+                typeNode = 0;
+            } else {
+                parent = Math.floor((i - 1) / 2);
+                typeNode = (i % 2 === 1) ? -1 : 1;
+            }
+            tree.push([i, parent, typeNode, values[i]]);
+        }
+             }
+         else if(type==='search'){
+         }
+         else if(tupe==='AVL'){
+
+         }
+    }
+    else if(representation === 'children'){
+                 if(type==='binary'){
+                                for (let i = 0; i < nodeCount; i++) {
+                                        let leftChild = 2 * i + 1 < nodeCount ? 2 * i + 1 : -1;
+                                        let rightChild = 2 * i + 2 < nodeCount ? 2 * i + 2 : -1;
+                                        tree.push([i, leftChild, rightChild, values[i]]);
+                                }
+                 }
+                    else if(type==='search'){
+             }
+            else if(type==='AVL'){
+
+             }
+    }
+    return tree;
+}
 export async function handleGenerateInput(req, res) {
     if (req.method === 'POST' && req.url === '/api/generate') {
         let body = '';
@@ -128,18 +204,25 @@ export async function handleGenerateInput(req, res) {
                 else if (input_type_id == 2) {
                     generated = generateMatrix(parameters);
                 }
+                else if (input_type_id == 3) {
+                    generated = generateGraph(parameters);
+                }
+                else if (input_type_id == 4) {
+                    generated = generateString(parameters);
+                }
+                else if (input_type_id == 5) {
+                    generated = generateTree(parameters);
+                }
                 else {
                     throw new Error('Tip de input necunoscut!');
                 }
                
-                // Dacă user_id nu există, doar trimite rezultatul
                 if (!user_id) {
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ result: generated }));
                     return;
                 }
 
-                // Dacă user_id există, salvează și în baza de date
                 const connection = await getConnection();
                 const result = await connection.execute(
                     `INSERT INTO Generated_Inputs (user_id, input_type_id, generated_content) 
@@ -167,7 +250,7 @@ export async function handleGenerateInput(req, res) {
                 res.writeHead(201, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ message: 'Input generat și salvat', input_id, result: generated }));
             } catch (err) {
-                    console.error('Eroare la generare:', err); // <-- adaugă asta!
+                    console.error('Eroare la generare:', err); 
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ error: err.message }));
             }
