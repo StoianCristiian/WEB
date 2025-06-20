@@ -59,7 +59,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
             })
             .then(r => r.json())
             .then(result => {
-                alert('Vector generat: ' + JSON.stringify(result.result));
+                showAlert('Vector generat: ' + JSON.stringify(result.result));
             });
         });
     });
@@ -83,7 +83,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
             })
             .then(r => r.json())
             .then(result => {
-                alert('Matrice generată: ' + JSON.stringify(result.result));
+                showAlert('Matrice generată: ' + JSON.stringify(result.result));
             });
         });
         });
@@ -119,7 +119,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
 
             function checkGraphType(e) {
                 if (graph1.checked && graph2.checked) {
-                    alert('Poți selecta doar un singur tip de graf: orientat sau neorientat!');
+                    showAlert('Poți selecta doar un singur tip de graf: orientat sau neorientat!');
                     e.target.checked = false;
                 }
             }
@@ -138,7 +138,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
             const strongCheckbox = document.getElementById('strong');
             function checkConexType(e) {
                 if (weakCheckbox.checked && strongCheckbox.checked) {
-                    alert('Poți selecta doar un singur tip de conexitate: slabă sau tare!');
+                    showAlert('Poți selecta doar un singur tip de conexitate: slabă sau tare!');
                     e.target.checked = false;
                 }
             }
@@ -154,3 +154,19 @@ document.querySelectorAll('.input-card').forEach(card=>{
 });
 })
 })
+
+function showAlert(message) {
+    const modal = document.getElementById('custom-alert-modal');
+    const msgSpan = document.getElementById('custom-alert-message');
+    const closeBtn = document.getElementById('custom-alert-close');
+    msgSpan.textContent = message;
+    modal.style.display = 'flex';
+
+    modal.onclick = (e) => {
+        if (e.target === modal) e.stopPropagation();
+    };
+
+    closeBtn.onclick = () => {
+        modal.style.display = 'none';
+    };
+}
