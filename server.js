@@ -1,5 +1,6 @@
 import http from 'http';
 import { handleUserRegister } from './routes/api-users.js';
+import { handleGenerateInput } from './routes/api-generate.js';
 import { handleAuth } from './routes/api-auth.js';
 import { handleMe } from './routes/api-me.js';
 import fs from 'fs/promises'
@@ -13,6 +14,7 @@ const PORT = process.env.PORT;
 const server = http.createServer(async (req, res) => {
     if (await handleAuth(req,res)) return;
     if (await handleUserRegister(req, res)) return;
+     if (await handleGenerateInput(req, res)) return;
     if(await handleMe(req, res)) return;
     try 
     {
