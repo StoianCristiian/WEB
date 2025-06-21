@@ -15,6 +15,7 @@ header {
     max-width: 900px;
     margin: 0 auto;
     padding: 0 2rem;
+    gap: 1rem;
 }
 #login-btn {
     background: #4caf50;
@@ -40,6 +41,26 @@ header {
 #logout-btn:hover {
     transform: translateY(-2px) scale(1.03);
     color: #fff;
+}
+#admin-btn {
+    background: linear-gradient(90deg, #e0e7ef 60%, #b0bec5 100%);
+    color: #222;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-right: auto; 
+    margin-left: 0;
+    box-shadow: 0 2px 8px rgba(176,190,197,0.10);
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+    order: -1; 
+}
+#admin-btn:hover {
+    background: linear-gradient(90deg, #b0bec5 0%, #e0e7ef 100%);
+    color: #1976d2;
+    transform: translateY(-2px) scale(1.03);
 }
 main {
     display: flex;
@@ -140,10 +161,17 @@ main {
     font-size: 1em;
 }
 
+#welcome { 
+    text-align: center;
+}
+
 @media (max-width: 900px) {
+    #admin-btn {
+        font-size: 0.98rem;
+        padding: 0.45rem 1rem;
+    }
     .header-content {
-        max-width: 98vw;
-        padding: 0 1vw;
+        gap: 0.7rem;
     }
     .input-types {
         flex-wrap: wrap;
@@ -167,8 +195,24 @@ main {
     }
     .header-content {
         flex-direction: column;
-        align-items: flex-end;
+        align-items: stretch;
+        gap: 0.5rem;
         padding: 0 0.5rem;
+    }
+    #admin-btn,
+    #login-btn,
+    #logout-btn {
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        border-radius: 0.7rem;
+        font-size: 1rem;
+        padding: 0.7rem 0.5rem;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    #admin-btn {
+        order: -1;
     }
     main {
         margin-top: 2rem;

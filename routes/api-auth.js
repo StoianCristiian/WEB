@@ -13,7 +13,7 @@ export async function handleAuth(req, res) {
                 const { username, password } = JSON.parse(body);
                 const connection = await getConnection();
                 const result = await connection.execute(
-                    `SELECT user_id, password_hash FROM Users WHERE username = :username`,
+                    `SELECT user_id, password_hash, rol FROM Users WHERE username = :username`,
                     { username }
                 );
                 await connection.close();
@@ -24,11 +24,11 @@ export async function handleAuth(req, res) {
                     return;
                 }
 
-                const [user_id, password_hash] = result.rows[0];
+                const [user_id, password_hash, rol] = result.rows[0];
                 const match = await bcrypt.compare(password, password_hash);
 
                 if (match) {
-                    const token = jwt.sign({ user_id, username }, SECRET, { expiresIn: '10m' });
+                    const token = jwt.sign({ user_id, username, rol }, SECRET, { expiresIn: '10m' });
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ message: 'Login successful', token }));
                 } else {

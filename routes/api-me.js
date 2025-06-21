@@ -9,7 +9,7 @@ export async function handleMe(req, res) {
         }
         const user = getUserFromToken(req);
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ username: user.username, user_id: user.user_id }));
+        res.end(JSON.stringify({ username: user.username, user_id: user.user_id, rol: user.rol }));
         return true;
     }
     return false;

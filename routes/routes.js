@@ -8,7 +8,7 @@ const baseDir = path.join(__dirname, '../app', 'Pages');
 const routes = {
     '/': path.join(baseDir, 'HomePage', "Home.html"),
     '/login': path.join(baseDir, 'Login', 'Login.html'),
-    '/about': path.join(baseDir, 'AboutPage', 'index.html'),
+    '/admin': path.join(baseDir, 'AdminPage', 'Admin.html'),
     '/register': path.join(baseDir, 'RegisterPage', 'register.html'),
 }
 
