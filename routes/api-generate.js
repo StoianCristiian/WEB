@@ -241,14 +241,129 @@ const type = params['sd-type'];
         }
         return adj.map((vecini, nod) => [nod, vecini]);
     }
-
-    return null;
 }
-if(graph)
-        {
-            graphData = generateUndirectedGraph(nodes, edges, cost, minCost, maxCost, type, conex,bipartite);
+function generateDigraph(nodes, edges, withCost, minCost, maxCost, representation, weak, strong, bipartit) {
+    let edgeSet = new Set();
+    let edgeList = [];
+
+    if (bipartit) {
+        let allNodes = Array.from({length: nodes}, (_, i) => i);
+        for (let i = allNodes.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allNodes[i], allNodes[j]] = [allNodes[j], allNodes[i]];
         }
-      
+        let k = Math.floor(Math.random() * (nodes - 1)) + 1;
+        let A = allNodes.slice(0, k);
+        let B = allNodes.slice(k);
+
+        if (strong) {
+            let cycle = [];
+            let len = Math.min(A.length, B.length);
+            for (let i = 0; i < len; i++) {
+                cycle.push([A[i], B[i]]);
+                cycle.push([B[i], A[(i + 1) % A.length]]);
+            }
+            for (let [u, v] of cycle) {
+                let cost = withCost ? Math.floor(Math.random() * (maxCost - minCost + 1)) + minCost : 1;
+                let key = `${u},${v}`;
+                if (!edgeSet.has(key)) {
+                    edgeSet.add(key);
+                    edgeList.push([u, v, cost]);
+                }
+            }
+        } else if (weak) {
+            let connected = [A[0]];
+            let unconnected = allNodes.filter(x => x !== A[0]);
+            while (unconnected.length > 0) {
+                let u = connected[Math.floor(Math.random() * connected.length)];
+                let v = unconnected.splice(Math.floor(Math.random() * unconnected.length), 1)[0];
+                if ((A.includes(u) && B.includes(v)) || (B.includes(u) && A.includes(v))) {
+                    let [from, to] = Math.random() < 0.5 ? [u, v] : [v, u];
+                    let cost = withCost ? Math.floor(Math.random() * (maxCost - minCost + 1)) + minCost : 1;
+                    let key = `${from},${to}`;
+                    if (!edgeSet.has(key)) {
+                        edgeSet.add(key);
+                        edgeList.push([from, to, cost]);
+                        connected.push(v);
+                    }
+                }
+            }
+        }
+
+        while (edgeList.length < edges) {
+            let u, v;
+            if (Math.random() < 0.5) {
+                u = A[Math.floor(Math.random() * A.length)];
+                v = B[Math.floor(Math.random() * B.length)];
+            } else {
+                u = B[Math.floor(Math.random() * B.length)];
+                v = A[Math.floor(Math.random() * A.length)];
+            }
+            if (u === v) continue;
+            let key = `${u},${v}`;
+            if (edgeSet.has(key)) continue;
+            edgeSet.add(key);
+            let cost = withCost ? Math.floor(Math.random() * (maxCost - minCost + 1)) + minCost : 1;
+            edgeList.push([u, v, cost]);
+        }
+    } else {
+        if (strong) {
+            for (let i = 0; i < nodes; i++) {
+                let u = i;
+                let v = (i + 1) % nodes;
+                let cost = withCost ? Math.floor(Math.random() * (maxCost - minCost + 1)) + minCost : 1;
+                let key = `${u},${v}`;
+                edgeSet.add(key);
+                edgeList.push([u, v, cost]);
+            }
+        } else if (weak) {
+            let allNodes = Array.from({length: nodes}, (_, i) => i);
+            let connected = [allNodes[0]];
+            let unconnected = allNodes.slice(1);
+
+            while (unconnected.length > 0) {
+                let u = connected[Math.floor(Math.random() * connected.length)];
+                let v = unconnected.splice(Math.floor(Math.random() * unconnected.length), 1)[0];
+                let [from, to] = Math.random() < 0.5 ? [u, v] : [v, u];
+                let cost = withCost ? Math.floor(Math.random() * (maxCost - minCost + 1)) + minCost : 1;
+                let key = `${from},${to}`;
+                edgeSet.add(key);
+                edgeList.push([from, to, cost]);
+                connected.push(v);
+            }
+        }
+        while (edgeList.length < edges) {
+            let u = Math.floor(Math.random() * nodes);
+            let v = Math.floor(Math.random() * nodes);
+            if (u === v) continue;
+            let key = `${u},${v}`;
+            if (edgeSet.has(key)) continue;
+            edgeSet.add(key);
+            let cost = withCost ? Math.floor(Math.random() * (maxCost - minCost + 1)) + minCost : 1;
+            edgeList.push([u, v, cost]);
+        }
+    }
+    if (representation === 'matrix') {
+        let mat = Array.from({length: nodes}, () => Array(nodes).fill(0));
+        for (let [u, v, cost] of edgeList) {
+            mat[u][v] = withCost ? cost : 1;
+        }
+        return mat;
+    }
+    if (representation === 'list') {
+        let adj = Array.from({length: nodes}, () => []);
+        for (let [u, v, cost] of edgeList) {
+            if (withCost) {
+                adj[u].push([v, cost]);
+            } else {
+                adj[u].push(v);
+            }
+        }
+        return adj.map((vecini, nod) => [nod, vecini]);
+    }
+}
+      if(graph) graphData = generateUndirectedGraph(nodes, edges, cost, minCost, maxCost, type, conex,bipartite);
+      else  graphData = generateDigraph(nodes, edges, cost, minCost, maxCost, type,weak,strong);
        return graphData;
     }
 function generateTree(params){
