@@ -123,3 +123,67 @@ main {
     cursor: pointer;
     font-size: 1em;
 }
+
+@media (max-width: 900px) {
+    .header-content {
+        max-width: 98vw;
+        padding: 0 1vw;
+    }
+    .input-types {
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        justify-content: center;
+    }
+    .input-card {
+        padding: 1.2rem 2rem;
+        font-size: 1.05rem;
+        min-width: 120px;
+    }
+    .property-form {
+        max-width: 95vw;
+        padding: 1rem 1vw;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 0.5rem 0;
+    }
+    .header-content {
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 0 0.5rem;
+    }
+    main {
+        margin-top: 2rem;
+    }
+    h1 {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+    .input-types {
+        flex-direction: column;
+        gap: 0.7rem;
+        align-items: center;
+        margin-top: 1rem;
+    }
+    .input-card {
+        width: 90vw;
+        min-width: 0;
+        padding: 1rem 0.5rem;
+        font-size: 1rem;
+        text-align: center;
+    }
+    .property-form {
+        max-width: 98vw;
+        padding: 0.7rem 1vw;
+        margin-top: 1rem;
+        border-radius: 6px;
+    }
+    #custom-alert-content {
+        min-width: 0;
+        max-width: 98vw;
+        padding: 1rem 0.5rem;
+        font-size: 1em;
+    }
+}
