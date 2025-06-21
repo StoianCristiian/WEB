@@ -14,8 +14,9 @@ const PORT = process.env.PORT;
 const server = http.createServer(async (req, res) => {
     if (await handleAuth(req,res)) return;
     if (await handleUserRegister(req, res)) return;
-     if (await handleGenerateInput(req, res)) return;
+    if (await handleGenerateInput(req, res)) return;
     if(await handleMe(req, res)) return;
+    
     try 
     {
         if(req.method === 'GET'){

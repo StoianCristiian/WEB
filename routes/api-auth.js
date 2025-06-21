@@ -28,7 +28,6 @@ export async function handleAuth(req, res) {
                 const match = await bcrypt.compare(password, password_hash);
 
                 if (match) {
-                    // Generează JWT
                     const token = jwt.sign({ user_id, username }, SECRET, { expiresIn: '10m' });
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ message: 'Login successful', token }));

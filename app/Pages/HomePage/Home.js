@@ -1,5 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
     const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
     const welcomeSpan = document.getElementById('welcome');
     const token = localStorage.getItem('token');
 
@@ -12,19 +13,32 @@ window.addEventListener('DOMContentLoaded', () => {
             if (data && data.username) {
                 welcomeSpan.textContent = `Bine ai venit, ${data.username}!`;
                 loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'inline-block';
             } else {
                 loginBtn.style.display = 'block';
+                logoutBtn.style.display = 'none';
                 welcomeSpan.textContent = '';
             }
         })
         .catch(() => {
             loginBtn.style.display = 'block';
+            logoutBtn.style.display = 'none';
             welcomeSpan.textContent = '';
         });
     } else {
         loginBtn.style.display = 'block';
+        logoutBtn.style.display = 'none';
         welcomeSpan.textContent = '';
     }
+
+    loginBtn.addEventListener('click', function() {
+        window.location.href = 'login';
+    });
+
+    logoutBtn.addEventListener('click', function() {
+        localStorage.removeItem('token');
+        window.location.reload();
+    });
 });
 
 
