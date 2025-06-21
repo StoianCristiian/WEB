@@ -29,6 +29,7 @@ export async function handleAuth(req, res) {
 
                 if (match) {
                     const token = jwt.sign({ user_id, username, rol }, SECRET, { expiresIn: '10m' });
+                    //console.log(token);
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ message: 'Login successful', token }));
                 } else {

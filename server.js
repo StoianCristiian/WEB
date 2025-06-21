@@ -7,6 +7,7 @@ import fs from 'fs/promises'
 import { getRoute } from './routes/routes.js';
 import path from 'path';
 import dotenv from 'dotenv';
+import { handleAdminUsers } from './routes/api-admin-users.js';
 dotenv.config();
 
 const PORT = process.env.PORT;
@@ -16,6 +17,7 @@ const server = http.createServer(async (req, res) => {
     if (await handleUserRegister(req, res)) return;
     if (await handleGenerateInput(req, res)) return;
     if(await handleMe(req, res)) return;
+    if (await handleAdminUsers(req, res)) return;
     
     try 
     {
