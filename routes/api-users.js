@@ -12,9 +12,9 @@ export async function handleUserRegister(req, res) {
 
                 const connection = await getConnection();
                 await connection.execute(
-                    `INSERT INTO Users (username, password_hash, email) 
-                     VALUES (:username, :password_hash, :email)`,
-                    { username, password_hash, email }
+                    `INSERT INTO Users (username, password_hash, email, rol) 
+                     VALUES (:username, :password_hash, :email, :rol)`,
+                    { username, password_hash, email, rol: 'user' }
                 );
                 await connection.commit();
                 await connection.close();

@@ -1,6 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
     const loginBtn = document.getElementById('login-btn');
     const logoutBtn = document.getElementById('logout-btn');
+    const adminBtn = document.getElementById('admin-btn');
     const welcomeSpan = document.getElementById('welcome');
     const token = localStorage.getItem('token');
 
@@ -10,24 +11,33 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         .then(res => res.ok ? res.json() : null)
         .then(data => {
+            console.log(data.rol);
             if (data && data.username) {
                 welcomeSpan.textContent = `Bine ai venit, ${data.username}!`;
                 loginBtn.style.display = 'none';
                 logoutBtn.style.display = 'inline-block';
+                if (data.rol === 'admin') {
+                    adminBtn.style.display = 'inline-block';
+                } else {
+                    adminBtn.style.display = 'none';
+                }
             } else {
                 loginBtn.style.display = 'block';
                 logoutBtn.style.display = 'none';
+                adminBtn.style.display = 'none';
                 welcomeSpan.textContent = '';
             }
         })
         .catch(() => {
             loginBtn.style.display = 'block';
             logoutBtn.style.display = 'none';
+            adminBtn.style.display = 'none';
             welcomeSpan.textContent = '';
         });
     } else {
         loginBtn.style.display = 'block';
         logoutBtn.style.display = 'none';
+        adminBtn.style.display = 'none';
         welcomeSpan.textContent = '';
     }
 
@@ -38,6 +48,10 @@ window.addEventListener('DOMContentLoaded', () => {
     logoutBtn.addEventListener('click', function() {
         localStorage.removeItem('token');
         window.location.reload();
+    });
+
+    adminBtn.addEventListener('click', function() {
+        window.location.href = 'admin';
     });
 });
 
@@ -125,7 +139,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
             })
             .then(r => r.json())
             .then(result => {
-                alert('Șir de caractere generat: ' + JSON.stringify(result.result));
+                showAlert('Șir de caractere generat: ' + JSON.stringify(result.result));
             });
         });
         });
@@ -149,7 +163,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
             })
             .then(r => r.json())
             .then(result => {
-                alert('Șir de caractere generat: ' + JSON.stringify(result.result));
+                showAlert('Șir de caractere generat: ' + JSON.stringify(result.result));
             });
         });
         });
