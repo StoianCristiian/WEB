@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="AdminPage/Admin.css">
 </head>
 <body>
-    <h1>About</h1>
+    <header>
+        <h2>Admin Dashboard</h2>
+        <button id="logout-btn">Logout</button>
+    </header>
+    <main>
+        <section id="users-section">
+            <h3>Utilizatori</h3>
+            <table id="users-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Utilizatorii vor fi încărcați din JS -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="AdminPage/Admin.js"></script>
 </body>
 </html>
