@@ -50,3 +50,33 @@ button:hover {
     cursor: pointer;
     text-decoration: underline;
 }
+
+@media (max-width: 900px) {
+    .container {
+        width: 80vw;
+        min-width: 220px;
+        max-width: 400px;
+        padding: 24px 10vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 98vw;
+        min-width: 0;
+        max-width: 99vw;
+        padding: 18px 2vw;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    form input, button {
+        font-size: 1rem;
+        padding: 12px;
+    }
+    h2 {
+        font-size: 1.2rem;
+    }
+    .toggle {
+        font-size: 0.98rem;
+    }
+}
