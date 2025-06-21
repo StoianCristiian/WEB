@@ -145,7 +145,23 @@ document.querySelectorAll('.input-card').forEach(card=>{
         .then(r => r.text())
         .then(html => {
             inputProperties.innerHTML = html;
-
+const form = document.getElementById('graph-form');
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+    fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            input_type_id: 3,
+            parameters: data,
+        })
+    })
+    .then(r => r.json())
+    .then(result => {
+        showAlert('Graf generat: ' + JSON.stringify(result.result));
+    });
+});
             const costCheckbox = document.getElementById('cost-checkbox');
             const costSection = document.getElementById('cost-section');
             costCheckbox.addEventListener('change', function() {
