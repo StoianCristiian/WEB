@@ -135,7 +135,9 @@
         <article id="api" resource="#apiSection" property="schema:hasPart">
             <h2 property="schema:about">3.3 API & securitate</h2>
             <p>
-                Toate endpoint-urile API validează tokenul JWT. Operațiile sensibile (ex: ștergere user) sunt permise doar pentru admini. Datele sunt validate atât pe frontend, cât și pe backend.
+                Toate endpoint-urile API validează tokenul JWT. Operațiile sensibile (ex: ștergere user) sunt permise doar pentru admini. 
+                Datele sunt validate atât pe frontend, cât și pe backend.
+                Se folosesc tehnici de protecție împotriva atacurilor de tip SQL Injection (prin interogări parametrizate) și Cross-Site Scripting (prin evitarea inserării directe de date nesanitizate în DOM).
             </p>
         </article>
 
