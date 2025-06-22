@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ro" prefix="schema: http://schema.org/">
+
+<head>
+    <meta charset="utf-8">
+    <title>Documentația InputGenerator</title>
+    <meta about="#inputgenerator" typeof="schema:ScholarlyArticle">
+    <link rel="stylesheet" href="Docs/docs.css">
+</head>
+
+<body>
+    <article resource="#inputgenerator" typeof="schema:ScholarlyArticle">
+        <h1 property="schema:headline">Documentația InputGenerator</h1>
+
+        <nav aria-label="Cuprins general">
+            <ul>
+                <li>
+                    <a href="#frontend">1. Frontend</a>
+                    <ul>
+                        <li><a href="#culori-font">1.1 Culori și font</a></li>
+                        <li><a href="#header">1.2 Header & Navigație</a></li>
+                        <li><a href="#homepage">1.3 Homepage</a></li>
+                        <li><a href="#formulare">1.4 Formulare de generare input</a></li>
+                        <li><a href="#responsive">1.5 Responsive design</a></li>
+                        <li><a href="#admin-dashboard">1.6 Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#functionalitati">2. Funcționalități principale</a>
+                    <ul>
+                        <li><a href="#autentificare">2.1 Autentificare & Înregistrare</a></li>
+                        <li><a href="#istoric">2.2 Istoric generări</a></li>
+                        <li><a href="#admin-functii">2.3 Funcții admin</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#backend">3. Backend</a>
+                    <ul>
+                        <li><a href="#arhitectura">3.1 Arhitectură & rute</a></li>
+                        <li><a href="#baza-date">3.2 Baza de date</a></li>
+                        <li><a href="#api">3.3 API & securitate</a></li>
+                        <li><a href="#tehnologii">3.4 Tehnologii folosite</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#concluzii">4. Concluzii & Teste</a>
+                </li>
+            </ul>
+        </nav>
+
+        <h2 id="frontend">1. Frontend</h2>
+
+        <article id="culori-font" resource="#colorFont" property="schema:hasPart">
+            <h2 property="schema:about">1.1 Culori și font</h2>
+            <p property="schema:description">
+                Paleta de culori folosește verde (#4caf50, #388e3c), albastru (#1976d2) și gri deschis (#e0e7ef) pentru un aspect modern și prietenos. Fontul principal este Arial, ales pentru claritate și lizibilitate pe orice dispozitiv.
+            </p>
+        </article>
+
+        <article id="header" resource="#headerSection" property="schema:hasPart">
+            <h2 property="schema:about">1.2 Header & Navigație</h2>
+            <p>
+                Header-ul conține butoane pentru autentificare, logout, acces admin și istoric. Navigarea este intuitivă, cu butoane vizibile și responsive.
+            </p>
+        </article>
+
+        <article id="homepage" resource="#homepageSection" property="schema:hasPart">
+            <h2 property="schema:about">1.3 Homepage</h2>
+            <p>
+                Pagina principală permite alegerea tipului de input (vector, matrice, șir, arbore, graf) și afișează formulare dedicate pentru fiecare tip. 
+                <strong>Aplicația este concepută pentru a genera automat date de test pentru probleme de programare, utile în concursuri sau laboratoare.</strong>
+            </p>
+        </article>
+
+        <article id="formulare" resource="#formulareSection" property="schema:hasPart">
+            <h2 property="schema:about">1.4 Formulare de generare input</h2>
+            <p>
+                Fiecare tip de input are un formular modern, cu validare și feedback vizual. Formularele sunt responsive și folosesc accente de verde/albastru pentru butoane și highlight-uri.
+                <strong>Se pot genera inputuri aleatorii sau personalizate pentru structuri precum array-uri, matrice, grafuri neorientate/orientate și arbori binari.</strong>
+            </p>
+        </article>
+
+        <article id="responsive" resource="#responsiveSection" property="schema:hasPart">
+            <h2 property="schema:about">1.5 Responsive design</h2>
+            <p>
+                Toate componentele sunt optimizate pentru mobil, desktop si tableta, cu layout-uri flexibile și butoane mari, ușor de folosit pe touchscreen.
+            </p>
+        </article>
+
+        <article id="admin-dashboard" resource="#adminDashboardSection" property="schema:hasPart">
+            <h2 property="schema:about">1.6 Admin Dashboard</h2>
+            <p>
+                Adminul are acces la un panou special pentru gestionarea utilizatorilor: vizualizare, ștergere. Accesul este securizat și disponibil doar pentru utilizatorii cu rol de admin.
+            </p>
+        </article>
+
+        <h2 id="functionalitati">2. Funcționalități principale</h2>
+
+        <article id="autentificare" resource="#autentificareSection" property="schema:hasPart">
+            <h2 property="schema:about">2.1 Autentificare & Înregistrare</h2>
+            <p>
+                Utilizatorii pot crea cont, se pot autentifica și deconecta. Parolele sunt validate și criptate, iar autentificarea se face cu token JWT.
+            </p>
+        </article>
+
+        <article id="istoric" resource="#istoricSection" property="schema:hasPart">
+            <h2 property="schema:about">2.2 Istoric generări</h2>
+            <p>
+                Utilizatorii pot vedea istoricul inputurilor generate, cu detalii despre parametri și data generării.
+            </p>
+        </article>
+
+        <article id="admin-functii" resource="#adminFunctiiSection" property="schema:hasPart">
+            <h2 property="schema:about">2.3 Funcții admin</h2>
+            <p>
+                Adminul poate gestiona utilizatori (ștergere, promovare), vedea statistici și accesa funcții suplimentare de moderare.
+            </p>
+        </article>
+
+        <h2 id="backend">3. Backend</h2>
+
+        <article id="arhitectura" resource="#arhitecturaSection" property="schema:hasPart">
+            <h2 property="schema:about">3.1 Arhitectură & rute</h2>
+            <p>
+                Backend-ul este organizat modular, cu rute pentru autentificare, gestionare utilizatori, generare inputuri și funcții admin. Fiecare rută validează datele și verifică permisiunile.
+            </p>
+        </article>
+
+        <article id="baza-date" resource="#bazaDateSection" property="schema:hasPart">
+            <h2 property="schema:about">3.2 Baza de date</h2>
+            <p>
+                Baza de date conține tabele pentru utilizatori, inputuri generate și istoric. Parolele sunt stocate criptat, iar rolurile utilizatorilor sunt gestionate separat.
+            </p>
+        </article>
+
+        <article id="api" resource="#apiSection" property="schema:hasPart">
+            <h2 property="schema:about">3.3 API & securitate</h2>
+            <p>
+                Toate endpoint-urile API validează tokenul JWT. Operațiile sensibile (ex: ștergere user) sunt permise doar pentru admini. Datele sunt validate atât pe frontend, cât și pe backend.
+            </p>
+        </article>
+
+        <article id="tehnologii" resource="#tehnologiiSection" property="schema:hasPart">
+            <h2 property="schema:about">3.4 Tehnologii folosite</h2>
+            <ul>
+                <li>Frontend: HTML5, CSS3, JavaScript (Vanilla)</li>
+                <li>Backend: Node.js, JWT, bcrypt</li>
+                <li>Baza de date: Oracle</li>
+            </ul>
+        </article>
+
+        <h2 id="concluzii">4. Concluzii</h2>
+        <section id="concluzii-final" resource="#concluzii-final">
+            <p>
+                Aplicația InputGenerator oferă o experiență modernă și sigură pentru generarea de date de test, cu funcții avansate pentru utilizatori și administratori. 
+                Testele de performanță și securitate confirmă fiabilitatea soluției. 
+                <strong>Este un instrument ideal pentru programatori care au nevoie de inputuri complexe pentru testarea algoritmilor.</strong>
+            </p>
+        </section>
+    </article>
+</body>
+</html>
