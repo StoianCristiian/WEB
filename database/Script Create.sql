@@ -7,7 +7,6 @@ created_at DATE DEFAULT SYSDATE NOT NULL,
 updated_at DATE DEFAULT SYSDATE NOT NULL,
 rol VARCHAR2(20) DEFAULT 'user' NOT NULL
 );
-
 CREATE TABLE Input_Types (
     input_type_id NUMBER PRIMARY KEY,
     name VARCHAR2(50) UNIQUE NOT NULL,
@@ -46,7 +45,6 @@ END ;
 /
 
 CREATE SEQUENCE seq_input_type_id START WITH 1 INCREMENT BY 1;
-
 CREATE OR REPLACE TRIGGER trg_input_type_id
 BEFORE INSERT ON Input_Types
 FOR EACH ROW
@@ -58,7 +56,7 @@ END ;
 /
 
 SELECT * FROM Input_Types;
-DROP Table Input_Types;
+
 CREATE SEQUENCE seq_input_id START WITH 1 INCREMENT BY 1;
 
 CREATE OR REPLACE TRIGGER trg_input_id

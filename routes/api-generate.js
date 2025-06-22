@@ -1,6 +1,6 @@
 import { getConnection } from '../database/db.js';
 import { getUserFromToken } from '../utils/auth.js';
-
+import oracledb from 'oracledb';
 function generateVector(params) {
     const length = Number(params.length);
     const min = Number(params.min);
@@ -536,12 +536,15 @@ export async function handleGenerateInput(req, res) {
                 const input_id = result.outBinds.input_id[0];
 
                 for (const [param_name, param_value] of Object.entries(parameters)) {
-                    await connection.execute(
-                        `INSERT INTO Input_Parameters (input_id, param_name, param_value)
-                         VALUES (:input_id, :param_name, :param_value)`,
-                        { input_id, param_name, param_value: String(param_value) }
-                    );
-                }
+    if (param_value === undefined || param_value === null ||
+        (typeof param_value === 'string' && param_value.trim() === '')
+    ) continue;
+    await connection.execute(
+        `INSERT INTO Input_Parameters (input_id, param_name, param_value)
+         VALUES (:input_id, :param_name, :param_value)`,
+        { input_id, param_name, param_value: String(param_value) }
+    );
+}
 
                 await connection.commit();
                 await connection.close();
@@ -554,6 +557,34 @@ export async function handleGenerateInput(req, res) {
                 res.end(JSON.stringify({ error: err.message }));
             }
         });
+        return true;
+    }
+    return false;
+}
+export async function handleHistory(req, res) {
+    if (req.method === 'GET' && req.url === '/api/history') {
+        const user = getUserFromToken(req);
+        if (!user) {
+            res.writeHead(401, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Trebuie să fii logat pentru a vedea istoricul!' }));
+            return true;
+        }
+        try {
+            const connection = await getConnection();
+            const result = await connection.execute(
+                `SELECT input_id, input_type_id, generated_content, created_at
+                 FROM Generated_Inputs
+                 WHERE user_id = :user_id
+                 ORDER BY created_at DESC`,
+                { user_id: user.user_id }
+            );
+            await connection.close();
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ history: result.rows }));
+        } catch (err) {
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Eroare la interogarea istoricului!' }));
+        }
         return true;
     }
     return false;
