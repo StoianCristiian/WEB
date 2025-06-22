@@ -3,6 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logout-btn');
     const adminBtn = document.getElementById('admin-btn');
     const welcomeSpan = document.getElementById('welcome');
+    const historyBtn = document.getElementById('history-btn'); // <-- adăugat
     const token = localStorage.getItem('token');
 
     if (token) {
@@ -11,7 +12,6 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         .then(res => res.ok ? res.json() : null)
         .then(data => {
-            console.log(data.rol);
             if (data && data.username) {
                 welcomeSpan.textContent = `Bine ai venit, ${data.username}!`;
                 loginBtn.style.display = 'none';
@@ -21,11 +21,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 } else {
                     adminBtn.style.display = 'none';
                 }
+                historyBtn.style.display = 'inline-block'; 
             } else {
                 loginBtn.style.display = 'block';
                 logoutBtn.style.display = 'none';
                 adminBtn.style.display = 'none';
                 welcomeSpan.textContent = '';
+                historyBtn.style.display = 'none'; 
             }
         })
         .catch(() => {
@@ -33,12 +35,14 @@ window.addEventListener('DOMContentLoaded', () => {
             logoutBtn.style.display = 'none';
             adminBtn.style.display = 'none';
             welcomeSpan.textContent = '';
+            historyBtn.style.display = 'none'; 
         });
     } else {
         loginBtn.style.display = 'block';
         logoutBtn.style.display = 'none';
         adminBtn.style.display = 'none';
         welcomeSpan.textContent = '';
+        historyBtn.style.display = 'none'; 
     }
 
     loginBtn.addEventListener('click', function() {
@@ -53,11 +57,63 @@ window.addEventListener('DOMContentLoaded', () => {
     adminBtn.addEventListener('click', function() {
         window.location.href = 'admin';
     });
+
+    historyBtn.addEventListener('click', () => {
+        fetch('/api/history', {
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.error) {
+                showAlert(data.error);
+            } else {
+                showHistory(data.history);
+            }
+        });
+    });
+
+    function showHistory(history) {
+    fetch('HomePage/HomeHistory.html')
+        .then(r => r.text())
+        .then(html => {
+            const inputProperties = document.getElementById('input-properties');
+            inputProperties.innerHTML = html;
+            const tableDiv = document.getElementById('history-table');
+            let tableHtml = '';
+            if (history && history.length > 0) {
+                tableHtml += `<table>
+                    <tr>
+                        <th>Tip input</th>
+                        <th>Data</th>
+                        <th>Rezultat</th>
+                    </tr>`;
+                for (const row of history) {
+                    const date = new Date(row[3]);
+                    const formatted = date.toLocaleString('ro-RO');
+                    tableHtml += `<tr>
+                        <td>${row[1]}</td>
+                        <td>${formatted}</td>
+                        <td><pre>${typeof row[2] === 'string' ? row[2] : JSON.stringify(row[2], null, 2)}</pre></td>
+                    </tr>`;
+                }
+                tableHtml += '</table>';
+            }
+            tableDiv.innerHTML = tableHtml;
+        });
+}
 });
 
 
+
 document.getElementById('login-btn').addEventListener('click', function() {
-       window.location.href = 'login';
+       w
+       const historyBtn = document.getElementById('history-btn');
+
+if (userIsLoggedIn) { 
+    historyBtn.style.display = 'inline-block';
+} else {
+    historyBtn.style.display = 'none';
+}indow.location.href = 'login';
 });
 document.addEventListener('DOMContentLoaded', ()=>{
 
@@ -121,7 +177,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
         });
         }
         if(type=='string'){
-             fetch('HomePage/HomeString.html')
+            fetch('HomePage/HomeString.html')
         .then(r => r.text())
         .then(html => {
             inputProperties.innerHTML = html;
@@ -131,7 +187,9 @@ document.querySelectorAll('.input-card').forEach(card=>{
             const data = Object.fromEntries(new FormData(form));
             fetch('/api/generate', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                           'Authorization': 'Bearer ' + localStorage.getItem('token')
+                 },
                 body: JSON.stringify({
                     input_type_id: 4,
                     parameters: data,
@@ -155,7 +213,9 @@ document.querySelectorAll('.input-card').forEach(card=>{
             const data = Object.fromEntries(new FormData(form));
             fetch('/api/generate', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
+                 },
                 body: JSON.stringify({
                     input_type_id: 5,
                     parameters: data,
@@ -169,27 +229,37 @@ document.querySelectorAll('.input-card').forEach(card=>{
         });
         } 
  if(type=='graf'){
-    fetch('HomePage/HomeGraph.html')
+   fetch('HomePage/HomeGraph.html')
         .then(r => r.text())
         .then(html => {
             inputProperties.innerHTML = html;
-const form = document.getElementById('graph-form');
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(form));
-    fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            input_type_id: 3,
-            parameters: data,
-        })
-    })
-    .then(r => r.json())
-    .then(result => {
-        showAlert('Graf generat: ' + JSON.stringify(result.result));
-    });
-});
+            const form = document.getElementById('graph-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const data = Object.fromEntries(new FormData(form));
+                fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                    body: JSON.stringify({
+                        input_type_id: 3,
+                        parameters: data,
+                    })
+                })
+                .then(r => r.json())
+                .then(result => {
+                    console.log('Răspuns backend:', result);
+                    if (result.error) {
+                        showAlert('Eroare la generare: ' + result.error);
+                    } else if (result.result !== undefined) {
+                        showAlert('Graf generat: ' + JSON.stringify(result.result));
+                    } else {
+                        showAlert('Graf generat, dar nu am primit rezultat de la server!');
+                    }
+                });
+            });
             const costCheckbox = document.getElementById('cost-checkbox');
             const costSection = document.getElementById('cost-section');
             costCheckbox.addEventListener('change', function() {
