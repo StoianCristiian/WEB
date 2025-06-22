@@ -10,6 +10,7 @@ const routes = {
     '/login': path.join(baseDir, 'Login', 'Login.html'),
     '/admin': path.join(baseDir, 'AdminPage', 'Admin.html'),
     '/register': path.join(baseDir, 'RegisterPage', 'register.html'),
+    '/docs': path.join(baseDir, 'Docs', 'docs.html')
 }
 
 export function getRoute(urlPath){
