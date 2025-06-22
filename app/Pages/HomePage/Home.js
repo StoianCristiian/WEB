@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logout-btn');
     const adminBtn = document.getElementById('admin-btn');
     const welcomeSpan = document.getElementById('welcome');
-    const historyBtn = document.getElementById('history-btn'); // <-- adăugat
+    const historyBtn = document.getElementById('history-btn');
     const token = localStorage.getItem('token');
 
     if (token) {
@@ -87,26 +87,59 @@ window.addEventListener('DOMContentLoaded', () => {
                         <th>Data</th>
                         <th>Rezultat</th>
                     </tr>`;
-                for (const row of history) {
-                    const date = new Date(row[3]);
-                    const formatted = date.toLocaleString('ro-RO');
-                    tableHtml += `<tr>
-                        <td>${row[1]}</td>
-                        <td>${formatted}</td>
-                        <td><pre>${typeof row[2] === 'string' ? row[2] : JSON.stringify(row[2], null, 2)}</pre></td>
-                    </tr>`;
-                }
+               history.forEach((row, idx) => {
+    const date = new Date(row.created_at);
+    const formatted = date.toLocaleString('ro-RO');
+    const jsonContent = typeof row.generated_content === 'string'
+        ? row.generated_content
+        : JSON.stringify(row.generated_content, null, 2);
+    tableHtml += `<tr>
+        <td>${row.input_type_id}</td>
+        <td>${formatted}</td>
+        <td><pre>${jsonContent}</pre></td>
+        <td><button class="export-json-btn" data-idx="${idx}">Exportă JSON</button></td>
+    </tr>`;
+});
                 tableHtml += '</table>';
             }
             tableDiv.innerHTML = tableHtml;
-        });
-}
-});
+           document.querySelectorAll('.export-json-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const idx = this.getAttribute('data-idx');
+        const row = history[idx];
+        let content = row.generated_content ?? row[2];
+        try {
+            content = typeof content === 'string' ? JSON.parse(content) : content;
+        } catch {
+        }
+        const exportObj = {
+            input_id: row.input_id ?? row[0],
+            input_type_id: row.input_type_id ?? row[1],
+            generated_content: content,
+            created_at: row.created_at ?? row[3],
+            parameters: row.parameters ?? row[4] ?? {}
+        };
+        const blob = new Blob(
+            [JSON.stringify(exportObj, null, 2)],
+            { type: 'application/json' }
+        );
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `input_${exportObj.input_id}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+             });
+      });
+  });
+ }
+ });
 
 
 
 document.getElementById('login-btn').addEventListener('click', function() {
-       w
        const historyBtn = document.getElementById('history-btn');
 
 if (userIsLoggedIn) { 

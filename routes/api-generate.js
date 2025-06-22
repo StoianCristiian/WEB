@@ -578,9 +578,30 @@ export async function handleHistory(req, res) {
                  ORDER BY created_at DESC`,
                 { user_id: user.user_id }
             );
+            const inputIds = result.rows.map(r => r[0]);
+            let paramsMap = {};
+            if (inputIds.length > 0) {
+                const paramsResult = await connection.execute(
+                    `SELECT input_id, param_name, param_value
+                     FROM Input_Parameters
+                     WHERE input_id IN (${inputIds.join(',')})`
+                );
+                for (const row of paramsResult.rows) {
+                    const [input_id, param_name, param_value] = row;
+                    if (!paramsMap[input_id]) paramsMap[input_id] = {};
+                    paramsMap[input_id][param_name] = param_value;
+                }
+            }
             await connection.close();
+            const history = result.rows.map(row => ({
+                input_id: row[0],
+                input_type_id: row[1],
+                generated_content: row[2],
+                created_at: row[3],
+                parameters: paramsMap[row[0]] || {}
+            }));
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ history: result.rows }));
+            res.end(JSON.stringify({ history }));
         } catch (err) {
             res.writeHead(500, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Eroare la interogarea istoricului!' }));
