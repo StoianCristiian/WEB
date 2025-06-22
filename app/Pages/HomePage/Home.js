@@ -172,7 +172,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
                            'Authorization': 'Bearer ' + localStorage.getItem('token')
                  },
                 body: JSON.stringify({
-                    input_type_id: 1,
+                    input_type_id: 6, 
                     parameters: data,
                 })
             })
@@ -198,7 +198,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
                            'Authorization': 'Bearer ' + localStorage.getItem('token')
                  },
                 body: JSON.stringify({
-                    input_type_id: 2,
+                    input_type_id: 7,
                     parameters: data,
                 })
             })
@@ -224,7 +224,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
                            'Authorization': 'Bearer ' + localStorage.getItem('token')
                  },
                 body: JSON.stringify({
-                    input_type_id: 4,
+                    input_type_id: 9,
                     parameters: data,
                 })
             })
@@ -250,7 +250,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
                             'Authorization': 'Bearer ' + localStorage.getItem('token')
                  },
                 body: JSON.stringify({
-                    input_type_id: 5,
+                    input_type_id: 10, 
                     parameters: data,
                 })
             })
@@ -277,7 +277,7 @@ document.querySelectorAll('.input-card').forEach(card=>{
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
                     },
                     body: JSON.stringify({
-                        input_type_id: 3,
+                        input_type_id: 8,
                         parameters: data,
                     })
                 })

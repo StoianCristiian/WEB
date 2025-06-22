@@ -497,19 +497,19 @@ export async function handleGenerateInput(req, res) {
                 const user_id = user ? user.user_id : null;
 
                 let generated;
-                if (input_type_id == 1) {
+                if (input_type_id == 6) {
                     generated = generateVector(parameters);
                 } 
-                else if (input_type_id == 2) {
+                else if (input_type_id == 7) {
                     generated = generateMatrix(parameters);
                 }
-                else if (input_type_id == 3) {
+                else if (input_type_id == 8) {
                     generated = generateGraph(parameters);
                 }
-                else if (input_type_id == 4) {
+                else if (input_type_id == 9) {
                     generated = generateString(parameters);
                 }
-                else if (input_type_id == 5) {
+                else if (input_type_id == 10) {
                     generated = generateTree(parameters);
                 }
                 else {
