@@ -22,8 +22,14 @@ export async function handleUserRegister(req, res) {
                 res.writeHead(201, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ message: 'User created' }));
             } catch (err) {
+                let message = 'Something went wrong.';
+                
+                if (err && err.message.includes('ORA-00001')) {
+                    message = 'Un utilizator cu aceste date exista deja.';
+                }
+
                 res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: err.message }));
+                res.end(JSON.stringify({ error: message }));
             }
         });
         return true;
