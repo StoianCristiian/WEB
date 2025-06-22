@@ -356,3 +356,16 @@ main {
     white-space: pre-wrap;
     word-break: break-all;
 }
+.export-json-btn {
+    background: #388e3c;
+    color: #fff;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.98em;
+    transition: background 0.2s;
+}
+.export-json-btn:hover {
+    background: #2e7031;
+}
